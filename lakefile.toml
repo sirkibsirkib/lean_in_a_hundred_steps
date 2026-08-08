@@ -1,0 +1,10 @@
+name = "hundred"
+version = "0.1.0"
+defaultTargets = ["hundred"]
+
+[[lean_lib]]
+name = "Hundred"
+
+[[lean_exe]]
+name = "hundred"
+root = "Main"

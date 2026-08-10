@@ -32,10 +32,9 @@ def ℕNat: ℕ → Nat
   | ℕ.succ n => Nat.succ (ℕNat n)
   | ℕ.zero   => Nat.zero
 
--- Ok now a few preliminaries ...
-open ℕ
+instance: Coe ℕ Nat where coe := ℕNat
 
-inductive lt
+-- Ok now a few preliminaries ...
 
 inductive Cmp where
   | less
@@ -43,7 +42,7 @@ inductive Cmp where
   | greater
 
 -- Step #1: define a recursive function. Let's computes `Cmp` given two `ℕ`
-def cmpℕ (a b: ℕ): Cmp :=
+def ℕ.cmp (a b: ℕ): Cmp :=
   /-
   Here it is handy to keep a proof that the match
   before `(a, b)` and after e.g. `(succ x, succ y)` are `=`.
@@ -58,7 +57,7 @@ def cmpℕ (a b: ℕ): Cmp :=
   | (succ _, zero  ) => Cmp.greater
   | (succ x, succ y) =>
       -- `_h : (a, b) = (x.succ, y.succ)` in scope
-      cmpℕ x y
+      cmp x y
 
 /-
 Lean considers the definition of `cmpℕ` incomplete here,
@@ -100,12 +99,14 @@ decreasing_by
   -- rewriting with many basic lemmas over `Nat`.
 
 -- Now the definition of `cmpℕ` is complete! We can use it like any other
-example: ℕ → ℕ → Cmp := cmpℕ
-example: cmpℕ one three = Cmp.less := by
+example: ℕ → ℕ → Cmp := ℕ.cmp
+
+open ℕ in
+example: ℕ.cmp one three = Cmp.less := by
   unfold one
   unfold three
   unfold two
-  repeat unfold cmpℕ
+  repeat unfold ℕ.cmp
   rfl
 
 /-
@@ -116,85 +117,89 @@ in that it peels away layers from `a b: ℕ` at each recursive call.
 But now we avoid `(_, _)` and expose the decreasing structure.
 As a consequence, Lean automatically proves termination!
 -/
-def abs_diff (a b: ℕ): ℕ :=
+def ℕ.abs_diff (a b: ℕ): ℕ :=
   match a with
-  | ℕ.zero => b
-  | ℕ.succ a' =>
+  | zero => b
+  | succ a' =>
     match b with
     | ℕ.zero => a
     | ℕ.succ b' => abs_diff a' b'
 
-example: abs_diff two four = two := by
-  simp [abs_diff, one, two, three, four]
+section ℕopened
+  open ℕ
 
-example: abs_diff four two = two := by
-  simp [abs_diff, one, two, three, four]
+  example: abs_diff two four = two := by
+    simp [abs_diff, one, two, three, four]
 
-theorem wah:
-  ∀ a b,
-    cmpℕ a b      = Cmp.less →
-    cmpℕ a b.succ = Cmp.less
-:= by
-  sorry
+  example: abs_diff four two = two := by
+    simp [abs_diff, one, two, three, four]
 
-theorem wah2:
-  ∀ a b,
-    cmpℕ a.succ b = Cmp.less →
-    cmpℕ a      b = Cmp.less
-:= by
-  intro a
-  induction a
-  . case zero =>
-    intro b h
-    cases b
-    . exfalso
-      unfold cmpℕ at h
-      contradiction
-    . case succ b =>
-      simp [cmpℕ]
-  . case succ a ih =>
-    intro b h
-
+  theorem wah:
+    ∀ a b,
+      cmp a b      = Cmp.less →
+      cmp a b.succ = Cmp.less
+  := by
     sorry
 
-/-
-So let's see a more complex example:
-
-Step #1: define the function `toward_three`:
-add or remove `succ` from `n` until `n = three`.
-
-This function sometimes calls with an
-_increasing_ parameter `n`,
-so obviously Lean cannot infer termination.
--/
-
-def toward_three (n: ℕ): ℕ :=
-  match _h: cmpℕ n three with
-  | Cmp.less    => toward_three n.succ
-  | Cmp.equal   => n
-  | Cmp.greater => toward_three (pred n)
-
-/-
-Step #2: define the decreasing measure:
-  the absolute difference in number of `succ`s
-  between `three` and `n`.
--/
-termination_by
-  ℕNat (abs_diff three n)
-
-/-
-Step #3: prove that the measure decreases
-per recursive call. Now there are two calls!
--/
-decreasing_by
-  . induction n
-    . simp [abs_diff, one, two, three, ℕNat]
-    . case succ n ih =>
+  theorem wah2:
+    ∀ a b,
+      cmp a.succ b = Cmp.less →
+      cmp a      b = Cmp.less
+  := by
+    intro a
+    induction a
+    . case zero =>
+      intro b h
+      cases b
+      . exfalso
+        unfold cmp at h
+        contradiction
+      . case succ b =>
+        simp [cmp]
+    . case succ a ih =>
+      intro b h
 
       sorry
-  . induction n
-    . exfalso
-      simp [three, cmpℕ] at _h
-    . case succ n ih =>
 
-      sorry
+  /-
+  So let's see a more complex example:
+
+  Step #1: define the function `toward_three`:
+  add or remove `succ` from `n` until `n = three`.
+
+  This function sometimes calls with an
+  _increasing_ parameter `n`,
+  so obviously Lean cannot infer termination.
+  -/
+
+  def toward_three (n: ℕ): ℕ :=
+    match _h: cmp n three with
+    | Cmp.less    => toward_three n.succ
+    | Cmp.equal   => n
+    | Cmp.greater => toward_three (pred n)
+
+  /-
+  Step #2: define the decreasing measure:
+    the absolute difference in number of `succ`s
+    between `three` and `n`.
+  -/
+  termination_by
+    ℕNat (abs_diff three n)
+
+  /-
+  Step #3: prove that the measure decreases
+  per recursive call. Now there are two calls!
+  -/
+  decreasing_by
+    . induction n
+      . simp [abs_diff, one, two, three, ℕNat]
+      . case succ n ih =>
+
+        sorry
+    . induction n
+      . exfalso
+        simp [three, cmp] at _h
+      . case succ n ih =>
+
+        sorry
+end ℕopened

@@ -64,4 +64,14 @@ example: Bit := One.Two.Three.name
 namespace One.Two
   namespace Three
     #print name
+    def another: Bit := name
+    #print another
 end One.Two.Three
+
+/-
+`open <name> in <command>` is a handy way to open the scope
+only within a particular definition, example, etc.
+-/
+open One.Two.Three in
+example: Bit := another
+er

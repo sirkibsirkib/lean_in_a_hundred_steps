@@ -1,4 +1,4 @@
-import Hundred.p45_predicates_and_relations
+import Hundred.p47_predicates_and_relations
 open ℕ
 /-
 In Lean (and Rocq etc) "proving" and "proofs" connote

@@ -1,5 +1,5 @@
 import Hundred.p42_inductive_parameters_vs_indices
-import Hundred.p45_predicates_and_relations
+import Hundred.p47_predicates_and_relations
 
 -- The `rename_i` tactic assigns the given name to the first
 -- inaccessible name in context, so it can be used as usual.

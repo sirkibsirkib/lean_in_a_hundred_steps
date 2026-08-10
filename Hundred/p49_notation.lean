@@ -3,7 +3,7 @@ import Hundred.p26_structural_recursion
 import Hundred.p30_propositions
 import Hundred.p14_constructor_functions
 import Hundred.p42_inductive_parameters_vs_indices
-import Hundred.p45_predicates_and_relations
+import Hundred.p47_predicates_and_relations
 
 /-
 On top of the normal Lean syntax of identifiers, functions, etc,

@@ -1,5 +1,5 @@
 import Hundred.p15_matching
-import Hundred.p52_class_instance
+import Hundred.p55_class_instance
 
 /-
 _instance-implicit binders_     `[a: A] →` and `[A]`

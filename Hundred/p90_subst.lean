@@ -1,8 +1,8 @@
 import Hundred.p15_matching
 import Hundred.p26_structural_recursion
-import Hundred.p47_notation
+import Hundred.p49_notation
 import Hundred.p42_inductive_parameters_vs_indices
-import Hundred.p45_predicates_and_relations
+import Hundred.p47_predicates_and_relations
 open ℕ
 
 /-

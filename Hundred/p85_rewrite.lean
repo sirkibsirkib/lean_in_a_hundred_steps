@@ -1,8 +1,8 @@
 import Hundred.p15_matching
 import Hundred.p26_structural_recursion
-import Hundred.p45_predicates_and_relations
-import Hundred.p47_notation
-import Hundred.p76_std_axioms_classical
+import Hundred.p47_predicates_and_relations
+import Hundred.p49_notation
+import Hundred.p75_std_axioms_classical
 
 /-
 The `rw` ("rewrite") tactic lets you rewrite

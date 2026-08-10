@@ -1,7 +1,7 @@
 import Hundred.p14_constructor_functions
 import Hundred.p20_currying
 import Hundred.p26_structural_recursion
-import Hundred.p45_predicates_and_relations
+import Hundred.p47_predicates_and_relations
 
 /-
 Conceptually, `class` is just a keyword that defines

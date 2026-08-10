@@ -1,7 +1,7 @@
 import Hundred.p15_matching
 import Hundred.p14_constructor_functions
 import Hundred.p42_inductive_parameters_vs_indices
-import Hundred.p47_notation
+import Hundred.p49_notation
 
 /-
 In some cases, you want to define a recursive function

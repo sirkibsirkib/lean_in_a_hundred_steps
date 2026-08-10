@@ -1,6 +1,6 @@
 import Hundred.p14_constructor_functions
 import Hundred.p42_inductive_parameters_vs_indices
-import Hundred.p45_predicates_and_relations
+import Hundred.p47_predicates_and_relations
 
 /-
 `have` is the tactic version of `let`.

@@ -1,5 +1,5 @@
 import Hundred.p01_inductive_types
-import Hundred.p45_predicates_and_relations
+import Hundred.p47_predicates_and_relations
 
 /-
 Using some metaprogramming wizardry,

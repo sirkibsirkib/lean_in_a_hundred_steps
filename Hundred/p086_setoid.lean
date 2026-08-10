@@ -34,8 +34,8 @@ instance SetoidℕPair: Setoid ℕPair where
 #check Setoid.iseqv.refl
 
 -- Let's finally use the setoid! `≈` "just works"!
-example: (ℕ.zero, ℕ.three) ≈ (ℕ.three, ℕ.zero) :=
+example: ((ℕ.zero, ℕ.three): ℕPair) ≈ (ℕ.three, ℕ.zero) :=
   ℕPair.same_sum_Equivalence.symm rfl
 
 -- In fact, thanks to `rfl` unfolding things like crazy, ...
-example: (ℕ.zero, ℕ.three) ≈ (ℕ.three, ℕ.zero) := rfl
+example: ((ℕ.zero, ℕ.three): ℕPair) ≈ (ℕ.three, ℕ.zero) := rfl

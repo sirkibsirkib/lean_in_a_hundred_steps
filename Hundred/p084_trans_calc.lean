@@ -1,5 +1,6 @@
 import Hundred.p026_structural_recursion
 import Hundred.p047_predicates_and_relations
+import Hundred.p059b_coercion
 import Hundred.p074_induction
 
 /-
@@ -32,10 +33,8 @@ Let's use the fact that `Trans Eq _ _` is instantiated
 to prove that a different relation is transitive.
 -/
 
-abbrev ℕPair := ℕ × ℕ
-
 abbrev ℕPair.pair_sum: ℕPair → ℕ :=
-  λ (x, y) ↦ x + y
+  λ pair ↦ pair.a + pair.b
 
 def ℕPair.same_sum: EndoRelation ℕPair :=
   λ n1 n2 ↦ n1.pair_sum = n2.pair_sum

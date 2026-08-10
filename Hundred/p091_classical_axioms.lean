@@ -5,40 +5,11 @@ The foundations of Lean are some _constructive logic_, which
 has very logical axioms like _modus ponens_ `(a → b) ∧ a → b` built in.
 This constructive core is even more emphasised in Coq, for example.
 
-
-The `Classical` module contains axioms that
--/
-
-/-
-`propext` formalises _propositional extensionality_:
-- "extensionality" is typically some proposition `∀ x y, R x y → x=y`
-- "propositional extensionality" asserts that all proofs of the same
-  proposition are interchangable (=).
-
-As such, (definitions using) this axiom muddy the originally
-strong interpretation of propositions of the form `x=y`.
-With it as a premise:
-  semantically identical ⟶ syntactically identical
-  semantically identical ⟵̸ syntactically identical
-
-Intuitively, `propext` formalises the idea that it does not
-matter how any _proposition_ is proven, as all proofs
-of the same proposition are the same.
-
-`propext` _could_ have been defined for any `Sort`,
-but there is a practical reason to limit it to propositions:
-- Lean enforces the "erasure" of propositions in the compilation toolchain, and
-- only _un-erased_ terms with holes are problematic for the compilation toolchain.
--/
-#print propext
-
-/-
 Lean's standard `Classical` library includes a handful of
 axioms which extent Lean's _constructive logical_ foundations
 into the world of _classical logic_, specifically for _propositions_.
 
 A fundamental axiom it adds is _the axiom of choice_:
-
 
 Note here how (Lean warned me that) Lean's interactive elaborator
 falls over in trying to reason about some axioms.

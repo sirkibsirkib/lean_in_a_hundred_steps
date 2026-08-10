@@ -1,4 +1,5 @@
 import Hundred.p26_structural_recursion
+import Hundred.p47_predicates_and_relations
 import Hundred.p72_induction
 
 /-
@@ -38,12 +39,6 @@ abbrev ℕPair.pair_sum: ℕPair → ℕ :=
 
 def ℕPair.same_sum: EndoRelation ℕPair :=
   λ n1 n2 ↦ n1.pair_sum = n2.pair_sum
-
-abbrev Transitive {T: Type} (R: EndoRelation T) :=
-  ∀ {x y z: T},
-    R x y   →
-    R   y z →
-    R x   z
 
 theorem ℕPair.same_sum_Transitive
 : Transitive ℕPair.same_sum

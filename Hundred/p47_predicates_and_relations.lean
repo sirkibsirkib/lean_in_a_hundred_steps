@@ -66,3 +66,15 @@ end
 
 def Odd.one:   Odd ℕ.one :=  Odd.succ _ Even.zero
 def Even.two: Even ℕ.two := Even.succ _  Odd.one
+
+
+abbrev Transitive {T: Type} (R: EndoRelation T) :=
+  ∀ {x y z: T},
+    R x y   →
+    R   y z →
+    R x   z
+
+abbrev Symmetric {T: Type} (R: EndoRelation T) :=
+  ∀ {x y: T},
+    R x y →
+    R y x

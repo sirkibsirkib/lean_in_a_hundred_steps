@@ -1,18 +1,17 @@
-import Hundred.p77c_equivalence
+import Hundred.p81c_equivalence
 
 /-
-Conceptually, instantiating class `Setoid T`
-equips your chosen type `T`
-with a canonical equivalence relation.
+Conceptually, instantiating class `Setoid T` equips
+type `T` with a canonical equivalence relation.
 https://en.wikipedia.org/wiki/Setoid
 
 Mechanically, your instance `i: Setoid T` defines
 1. `i.r` the endorelation over `T`
 2. a proof of `Equivalence i.r`.
 
-This relation is _canonical_ in the sense that,
-by being defined as a class,
-you are mapping `T → I` via the instance-resolution table.
+This relation is _canonical_ in the sense that
+you are mapping `T → I` via the instance-resolution table
+(e.g., shadowing any existing setoid instance).
 Some standard utilities then can do `[i: Setoid T]` to
 acquire the setoid, to reason about it or whatever.
 
@@ -31,3 +30,12 @@ instance SetoidℕPair: Setoid ℕPair where
 -- And Lean can resolve the setoid over `ℕPair`.
 #synth   Setoid ℕPair
 #reduce (@Setoid.r ℕPair)
+
+#check Setoid.iseqv.refl
+
+-- Let's finally use the setoid! `≈` "just works"!
+example: (ℕ.zero, ℕ.three) ≈ (ℕ.three, ℕ.zero) :=
+  ℕPair.same_sum_Equivalence.symm rfl
+
+-- In fact, thanks to `rfl` unfolding things like crazy, ...
+example: (ℕ.zero, ℕ.three) ≈ (ℕ.three, ℕ.zero) := rfl

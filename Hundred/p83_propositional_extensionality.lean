@@ -8,8 +8,6 @@ for lifting _extensional equality_ to _equality_ for some things,
 where extensional equality roughly means "equal input/output behaviour".
 -/
 
---------- propositional extensionality ---------
-
 /-
 _Propositional extensionality_ asserts that two
 logically equivalent proofs (`p ↔ q`) are equal (`p = q`).

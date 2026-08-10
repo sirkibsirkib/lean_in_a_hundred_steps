@@ -6,8 +6,7 @@ import re
 
 PREFIX_RE = re.compile(r"^[^_]+")
 
-
-def rename_lean_files(directory: str = ".") -> None:
+def rename_lean_files(directory) -> None:
     directory = Path(directory)
 
     # Find all .lean files and sort alphabetically by their original filename.
@@ -82,4 +81,4 @@ def rename_lean_files(directory: str = ".") -> None:
 
 
 if __name__ == "__main__":
-    rename_lean_files(".")
+    rename_lean_files("./Hundred")

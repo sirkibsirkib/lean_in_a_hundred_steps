@@ -18,7 +18,7 @@ def rename_lean_files(directory) -> None:
     key=lambda path: path.name,
   )
 
-  if len(files) >= 100:
+  if len(files) >= 1000:
     raise ValueError("This script supports fewer than 100 .lean files.")
 
   # Build a mapping from each original prefix to its new prefix.
@@ -30,7 +30,7 @@ def rename_lean_files(directory) -> None:
       raise ValueError(f"Could not determine prefix for {path.name}")
 
     old_prefix = match.group(0)
-    new_prefix = f"p{number:02d}"
+    new_prefix = f"p{number:03d}"
 
     if old_prefix in renames:
       raise ValueError(

@@ -58,44 +58,46 @@ import Hundred.p056_instance_implicit_and_resolution
 import Hundred.p057_tools_for_abstraction
 import Hundred.p058_less_than
 import Hundred.p059_add
-import Hundred.p060_theorem
-import Hundred.p061_axiom_sorry
-import Hundred.p062_variable
-import Hundred.p063_section
-import Hundred.p064_tactics_by_exact
-import Hundred.p065_intro_revert
-import Hundred.p066_assumption
-import Hundred.p067_cases
-import Hundred.p068_rename
-import Hundred.p069_apply
-import Hundred.p070_rfl_symm
-import Hundred.p071_unfold
-import Hundred.p072_left_right
-import Hundred.p073_constructor
-import Hundred.p074_induction
--- import Hundred.p075_congruence_TODO
-import Hundred.p076_semicolon
-import Hundred.p077_have_obtain
-import Hundred.p078_specialize
-import Hundred.p079_patterns
--- import Hundred.p080_change_TODO
-import Hundred.p081_contradiction
-import Hundred.p082_exfalso
-import Hundred.p083_paradox
-import Hundred.p084_trans_calc
-import Hundred.p085_equivalence
-import Hundred.p086_setoid
-import Hundred.p087_quotient
-import Hundred.p088_proof_irrelevance
-import Hundred.p089_propositional_extensionality
-import Hundred.p090_functional_extensionality
-import Hundred.p091_classical_axioms
-import Hundred.p092_rewrite
-import Hundred.p093_simp
-import Hundred.p094_repeat
-import Hundred.p095_subst
-import Hundred.p096_exists_tactic
-import Hundred.p097_decidable
--- import Hundred.p098_deriving_instance_TODO
-import Hundred.p099_if_then_else_prop
--- import Hundred.p100_proving_termination_TODO
+import Hundred.p060_coercion
+import Hundred.p061_theorem
+import Hundred.p062_axiom_sorry
+import Hundred.p063_variable
+import Hundred.p064_section
+import Hundred.p065_tactics_by_exact
+import Hundred.p066_intro_revert
+import Hundred.p067_assumption
+import Hundred.p068_cases
+import Hundred.p069_rename
+import Hundred.p070_apply
+import Hundred.p071_have_obtain
+import Hundred.p072_specialize
+import Hundred.p073_patterns
+-- import Hundred.p074_change_TODO
+import Hundred.p075_rfl_symm
+import Hundred.p076_unfold
+import Hundred.p077_simp
+import Hundred.p078_rewrite
+import Hundred.p079_subst
+import Hundred.p080_left_right
+import Hundred.p081_constructor
+import Hundred.p082_induction
+-- import Hundred.p083_congruence_TODO
+import Hundred.p084_semicolon
+import Hundred.p085_try
+import Hundred.p086_contradiction
+import Hundred.p087_exfalso
+import Hundred.p088_paradox
+import Hundred.p089_trans_calc
+import Hundred.p090_equivalence
+import Hundred.p091_setoid
+import Hundred.p092_quotient
+import Hundred.p093_proof_irrelevance
+import Hundred.p094_propositional_extensionality
+import Hundred.p095_functional_extensionality
+import Hundred.p096_classical_axioms
+import Hundred.p097_repeat
+import Hundred.p098_exists_tactic
+import Hundred.p099_decidable
+-- import Hundred.p100_deriving_instance_TODO
+import Hundred.p101_if_then_else_prop
+-- import Hundred.p102_proving_termination_TODO

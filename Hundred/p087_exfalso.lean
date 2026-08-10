@@ -1,5 +1,5 @@
 import Hundred.p047_predicates_and_relations
-import Hundred.p074_induction
+import Hundred.p082_induction
 
 /-
 `exfalso` replaces the goal with `False`.

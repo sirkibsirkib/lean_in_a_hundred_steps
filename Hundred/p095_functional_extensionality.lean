@@ -1,6 +1,6 @@
 import Hundred.p047_predicates_and_relations
-import Hundred.p082_exfalso
-import Hundred.p088_proof_irrelevance
+import Hundred.p087_exfalso
+import Hundred.p093_proof_irrelevance
 
 /-
 For _definitionally equal_ functions, `Eq.refl` suffices to

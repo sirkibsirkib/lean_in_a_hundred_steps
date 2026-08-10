@@ -1,7 +1,7 @@
 import Hundred.p001_inductive_types
 import Hundred.p014_constructor_functions
 import Hundred.p058_less_than
-import Hundred.p074_induction
+import Hundred.p082_induction
 
 /-
 `Decidable` is another parametric class

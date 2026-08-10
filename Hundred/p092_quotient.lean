@@ -1,4 +1,4 @@
-import Hundred.p086_setoid
+import Hundred.p091_setoid
 
 /-
 Lean's `Quotient` class

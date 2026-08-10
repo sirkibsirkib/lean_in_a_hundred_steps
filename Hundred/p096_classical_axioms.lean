@@ -1,4 +1,4 @@
-import Hundred.p047_predicates_and_relations
+import Hundred.p086_contradiction
 
 /-
 The foundations of Lean are some _constructive logic_, which
@@ -41,28 +41,6 @@ example: ∀ (P: Prop), P ∨ ¬P := Classical.em
 Some instances of `lem_Prop` are provable
 without `Classical` and its underlying axiom.
 -/
-theorem even_nand_odd: ∀ n, Even n → Odd n → False := by
-  intro n
-  induction n
-  . case zero =>
-    intro he ho
-    cases ho
-  . case succ n ih =>
-    intro he ho
-    apply ih
-    . cases ho ; assumption
-    . cases he ; assumption
-
-theorem even_or_odd: ∀ n, Even n ∨ Odd n := by
-  intro n
-  induction n
-  . case zero =>
-    left ; exact Even.zero
-  . case succ n ih =>
-    cases ih
-    case inl => right ; apply  Odd.succ ; assumption
-    case inr =>  left ; apply Even.succ ; assumption
-
 abbrev P_even_or_neven := ∀ n, Even n ∨ ¬ Even n
 theorem even_or_neven: P_even_or_neven := by
   intro n

@@ -1,6 +1,6 @@
 import Hundred.p47_predicates_and_relations
-import Hundred.p81_proof_irrelevance
 import Hundred.p80_exfalso
+import Hundred.p82_proof_irrelevance
 
 /-
 Lean's standard library (and prelude) offer axioms

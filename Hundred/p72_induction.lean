@@ -1,6 +1,7 @@
 import Hundred.p49_notation
 import Hundred.p47_predicates_and_relations
 import Hundred.p58_less_than
+import Hundred.p59_add
 
 namespace Lyst
   variable {T: Type}
@@ -67,3 +68,19 @@ theorem ℕzero_lt_succ: ∀ (a: ℕ), ℕ.zero < a.succ := by
   . constructor
   . constructor
     assumption
+
+/-
+Let's prove that `ℕ.succ` distributes
+over the right hand side of `ℕ.sum`.
+-/
+theorem ℕ.sum_succ:
+  ∀ (a b: ℕ),
+    sum a b.succ = (sum a b).succ
+:= by
+  intro a
+  induction a
+  . intro b
+    exact Eq.refl (zero.sum b.succ)
+  . case succ a' ih =>
+    intro b
+    exact ih b.succ

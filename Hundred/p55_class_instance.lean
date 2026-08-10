@@ -36,12 +36,12 @@ instance whatever: ℕClass := ℕClass.zero -- like `def`
 instance         : ℕClass := ℕClass.zero -- like `example`
 -- either way, now `ℕClass ↦ ℕClass.zero` is in the table!
 
--- Use `inferInstace : <type>` to look up the term mapped by `type`.
-#reduce (inferInstance: ℕClass) -- zero
+-- Use `#synth <type>` to look up the term mapped by `type`.
+#synth ℕClass
 
 -- Update the table, overwriting prior mappings
 instance: ℕClass := ℕClass.zero.succ
-#reduce (inferInstance: ℕClass) -- zero.succ
+#synth ℕClass
 
 /-
 Actually, the table has a _priority_ column as well.

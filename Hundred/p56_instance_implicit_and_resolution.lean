@@ -36,7 +36,7 @@ made explicit by preceding the function by `@`.
 #reduce (@ℕClass_is_zero ℕClass.zero: Bit)
 
 /-
-So actually, the `inferInstance` we saw earlier is nothing special!
+`inferInstance` Is provided as an approximation of `#synth`
 It is just the 2-ary function defined as
 `inferInstance: {T} → [t: T] → T := λ {T} [t: T] ↦ t`.
 
@@ -51,14 +51,17 @@ The standard usage `(inferInstance: T)` is really just
 -- from ascribed output `ℕClass`.
 -- The instance of `ℕClass` is looked up in the table.
 #reduce (inferInstance: ℕClass)
+#synth ℕClass
 
 -- class `ℕClass` given explicitly.
 -- The instance of `ℕClass` is looked up in the table.
 #reduce (@inferInstance ℕClass _)
+#synth ℕClass
 
 -- class `ℕClass` given explicitly.
 -- The instance of `ℕClass` is given explicitly.
 #reduce (@inferInstance ℕClass ℕClass.zero)
+#synth ℕClass
 
 /-
 From a usability perspective, there is a minor difference between:

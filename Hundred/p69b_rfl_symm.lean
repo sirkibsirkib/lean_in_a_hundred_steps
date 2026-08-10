@@ -20,17 +20,3 @@ example (x y: Sort u): x=y → y=x := by
   symm at h
   symm
   assumption
-
--- `funext <name>` is shorthand for `apply funext` and then `intro <name>`.
--- Omit the name to omit the intro part.
-def ℕ.succ': ℕ → ℕ
-  | ℕ.zero => ℕ.one
-  | n => n.succ
-
-def qqq: ℕ.succ = ℕ.succ' := by
-  unfold ℕ.succ'
-  funext n
-  cases n
-  . unfold ℕ.one
-    simp
-  . simp

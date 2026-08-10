@@ -74,7 +74,6 @@ example:    @IndexFamily Nat Nat := λ n ↦ n
 
 def IndexFamily'  := (domain: Type) → {codomain: Type} → domain → codomain
 def IndexFamily'' := (domain: Type) → {codomain: Type} → domain → codomain
-example:    @IndexFamily' Nat Nat := λ n ↦ n
 
 /-
 But this does not work.
@@ -86,6 +85,4 @@ before looking right of the `:=`.
 In this respect, Rocq excels by elaborating the type and term together.
 `Definition index_family (domain: Type) {codomain: Type} := domain -> codomain.`
 `Example eg1: index_family nat := fun n => n.`
-
-
 -/

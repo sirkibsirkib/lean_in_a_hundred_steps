@@ -8,6 +8,7 @@ are similar to implicit binders `{a: A} →` and `{A}`.
 But instance-implicit binders differ in a few respects:
 1. A major restriction: The bound type (`A` above) must be a class.
 3. A minor restriction: `[_: ...]` is prohibited for some reason?
+   Lean does not allow binding but wildcarding the binding?
 2. The main point: the instances are implicitly determined
    by being looked up in the _instance-class resolution_ table!
 -/

@@ -12,64 +12,58 @@ But syntactically,
 - `class` is an annotated `structure`.
 - `class inductive` is an annotated `inductive`.
 (This reflects how the `structure` variant is typical.)
-
-In theory these declare types as usual,
-and they behave pretty much as usual.
 -/
 class inductive ℕClass: Type where
   | zero: ℕClass
   | succ: ℕClass → ℕClass
 
-namespace ℕClass
-  example: ℕClass → ℕClass := λn ↦ n.succ
-end ℕClass
+-- First of all, these annotated types are
+-- usable much like un-annotated ones.
+example: ℕClass := ℕClass.zero.succ.succ
 
 /-
 But the real utility of classes is their unique
-interaction with `instance` declarations.
+interaction with the _instance resolution table_,
+which lean maintains. A partial function from types to terms.
 -/
 
 /-
-On the face of it, `instance` behaves like `def`:
-you use it to bind the instance of a given
-(or inferred) type to a chosen name.
+`instance <name> : <type> := <term>`
+adds mapping `<type> ↦ <term>` to the instance
+resolution table. But it also behaves like `def` and `example`.
 -/
-instance egℕ₁: ℕ := ℕ.zero
-def      egℕ₂: ℕ := ℕ.zero
+instance whatever: ℕClass := ℕClass.zero -- like `def`
+instance         : ℕClass := ℕClass.zero -- like `example`
+-- either way, now `ℕClass ↦ ℕClass.zero` is in the table!
+
+-- Use `inferInstace : <type>` to look up the term mapped by `type`.
+#reduce (inferInstance: ℕClass) -- zero
+
+-- Update the table, overwriting prior mappings
+instance: ℕClass := ℕClass.zero.succ
+#reduce (inferInstance: ℕClass) -- zero.succ
 
 /-
-Also, `instance` behaves like `example`:
-you may omit the name for the declaration.
+Actually, the table has a _priority_ column as well.
+Lookups return (the highest priority, defined most recently),
+ordered lexicographically.
 -/
-instance: ℕ := ℕ.four
-example : ℕ := ℕ.four
+instance (priority := 20): ℕClass := ℕClass.zero -- lower priority
 
 /-
-But `instance` declarations have another important effect.
+The typical use case of classes and instances is in
+associating (structures which aggregate) functions to a type.
 
-For each `instance := (<term> : <type>)`, the `(type, term)` pair
-becomes an entry in the _class-instance resolution table_
-(optionally: also with a specified `priority: Nat`).
+As such, the common pattern is for classes to
+be parametrised by their instance.
 -/
-instance: ℕClass := ℕClass.zero
-instance (priority := 39): ℕClass := ℕClass.zero.succ
+class Coolest (T: Type) where
+  coolest: T
 
-/-
-In any context, `inferInstance` looks up the `term` associated
-to the specified `type` with the highest `priority`.
+instance: Coolest ℕ where
+  coolest := ℕ.four
 
-You can look up the highest priority instance
-for a specified class with `inferInstance`
--/
-#reduce (inferInstance: ℕClass)
-instance (priority := 42): ℕClass := ℕClass.zero
-#reduce (inferInstance: ℕClass)
-
-/-
-Because this specialised usage of `instance` is so important,
-I would argue that using `instance` to define
-non-class types is generally misleading and undesirable.
--/
+example: ℕ := (Coolest.coolest : ℕ).succ.succ
 
 /-
 The Lean standard library is full of class definitions,

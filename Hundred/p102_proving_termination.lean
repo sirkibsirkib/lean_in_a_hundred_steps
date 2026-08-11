@@ -2,6 +2,7 @@ import Hundred.p015_matching
 import Hundred.p014_constructor_functions
 import Hundred.p043_inductive_parameters_vs_indices
 import Hundred.p050_notation
+import Hundred.p101b_nat
 
 /-
 In some cases, you want to define a recursive function
@@ -24,20 +25,9 @@ because it cannot decrease forever!
 -/
 
 /-
-Lean requires the _measure_ to be of the standard `Nat` type,
-which we have so far approximated ourselves as `ℕ`.
-Let's quickly define a conversion function `: ℕ → Nat`.
+First, let's consider a simple case:
+  `ℕ.cmp` recursively compares `ℕ` pairs.
 -/
-def ℕNat: ℕ → Nat
-  | ℕ.succ n => Nat.succ (ℕNat n)
-  | ℕ.zero   => Nat.zero
-
-/-
-Let's consider a simple case:
-let's define `ℕ.cmp`, a recursive comparator of `ℕ` pairs,
-and prove that this function terminates.
--/
-
 inductive Cmp where | less | equal | greater
 
 -- Step #1: define a recursive function. Let's computes `Cmp` given two `ℕ`
@@ -97,19 +87,32 @@ decreasing_by
   -- Lean magically completes the proof, because `simp` tries
   -- rewriting with many basic lemmas over `Nat`.
 
--- Now the definition of `cmpℕ` is complete! We can use it like any other
-example: ℕ → ℕ → Cmp := ℕ.cmp
+-- Now the definition of `cmpℕ` is complete! We can use it like any other.
+-- Let's compute with `cmpℕ`!
+#reduce ℕ.zero.cmp ℕ.two
+#reduce ℕ.four.cmp ℕ.four
+#reduce ℕ.four.cmp ℕ.three
 
-open ℕ in
-example: ℕ.cmp one three = Cmp.less := by
-  unfold one
-  unfold three
-  unfold two
-  unfold ℕ.cmp
-  unfold ℕ.cmp
-  rfl
+open ℕ in example: ℕ.cmp one three = Cmp.less :=
+  by simp [one, two, three, cmp]
+
+-- Let's build definitions atop `cmpℕ`!
+theorem ℕ.cmp_greater_lt: ∀ a b, a.cmp b = Cmp.greater → ℕNat b < ℕNat a
+  | .zero,    .zero,    h => by rw [ℕ.cmp] at h; contradiction
+  | .zero,    .succ _,  h => by rw [ℕ.cmp] at h; contradiction
+  | .succ _,  .zero,    _ => by simp [ℕNat]
+  | .succ a', .succ b', h => by
+      rw [ℕ.cmp] at h
+      have ih := ℕ.cmp_greater_lt a' b' h
+      simp only [ℕNat]
+      exact Nat.succ_lt_succ ih
 
 /-
+Sometimes, getting Lean to recognise termination is
+just a matter of tweaking the encoding.
+
+Below, we define `ℕ.cmp'` as equal to `ℕ.cmp`
+but where
 But perhaps the above example was not totally convincing,
 because it could be worked around by reformulating the definition.
 
@@ -126,103 +129,32 @@ def ℕ.cmp' (a b: ℕ): Cmp :=
   | succ _, zero   => Cmp.greater
   | succ x, succ y => cmp' x y
 
-#print Nat.lt
-
-#print Nat.lt
-
-theorem ℕ.cmp_less_implies_lt_ℕNat:
-  ∀ a b,
-    ℕ.cmp a b = Cmp.less →
-    ℕNat a < ℕNat b
-:= by
-  intro a b h
-  induction a generalizing b with
-  | zero =>
-    cases b
-    . unfold cmp at h
-      cases h
-    . exact Nat.succ_pos _
-  | succ a ih =>
-    cases b
-    . rw [ℕ.cmp] at h
-      contradiction
-    . case succ b' =>
-      rw [ℕ.cmp] at h
-      have hb': a.cmp b' = Cmp.less := h
-      have hlt: ℕNat a < ℕNat b' := ih b' hb'
-      rw [ℕNat, ℕNat]
-      exact Nat.succ_lt_succ hlt
-
-theorem ℕ.lt_ℕNat_impl_cmp_less:
-  ∀ a b,
-    ℕNat a < ℕNat b →
-    ℕ.cmp a b = Cmp.less
-:= by
-  intro a b
-  induction a generalizing b with
-  | zero =>
-      intro h
-      cases b with
-      | zero =>
-          rw [ℕNat] at h
-          exact absurd h (Nat.lt_irrefl 0)
-      | succ b' => rw [ℕ.cmp]
-  | succ a' iha =>
-      intro h
-      cases b with
-      | zero =>
-          rw [ℕNat, ℕNat] at h
-          contradiction
-      | succ b' =>
-          rw [ℕNat, ℕNat] at h
-          have h' : ℕNat a' < ℕNat b' := Nat.lt_of_succ_lt_succ h
-          have hcmp : a'.cmp b' = Cmp.less := iha b' h'
-          rw [ℕ.cmp]
-          exact hcmp
+theorem ℕ.cmp_eq_cmp': ℕ.cmp = ℕ.cmp' := by
+  funext m n
+  induction m generalizing n with
+  | zero       => cases n <;> simp [cmp, cmp']
+  | succ m ihm => cases n <;> simp [cmp, cmp', ihm]
 
 /-
-So let's see a more complex example:
-
-Step #1: define the function `toward_three`:
-add or remove `succ` from `n` until `n = three`.
-
-This function sometimes calls with an
-_increasing_ parameter `n`,
-so obviously Lean cannot infer termination.
+But sometimes you see no way to rewrite your
+term such that Lean proves termination automatically.
+You may need a more subtle measure, or a more
+sophisticated proof that your measure decreases.
+Here's an example of the latter.
 -/
-def ℕ.abs_diff: ℕ → ℕ → ℕ
-  |    zero,      b  => b
-  |      a ,    zero => a
-  | succ a', succ b' => a'.abs_diff b'
 
-def ℕ.sub : ℕ → ℕ → ℕ
-  | a,        .zero    => a
-  | .zero,    .succ _  => .zero
-  | .succ a', .succ b' => sub a' b'
+def ℕ.div (a b: ℕ) (hnz: b ≠ zero): ℕ :=
+  match _h: a.cmp b with
+  | .greater => succ <| (a - b).div b hnz
+  | _        => zero
 
-theorem ℕ.sub_eq: ∀ a b, ℕNat (a.sub b) = ℕNat a - ℕNat b := by
-  intro a b
-  induction a generalizing b with
-  | zero => cases b <;> simp [ℕ.sub, ℕNat]
-  | succ a' iha =>
-    cases b with
-    | zero    => simp [ℕ.sub, ℕNat]
-    | succ b' =>
-      have hi := iha b'
-      simp only [ℕ.sub, ℕNat]
-      omega
-
-def ℕ.div (a b : ℕ) : ℕ :=
-  if hb : ℕNat b = 0 then
-    .zero
-  else if h : ℕNat a < ℕNat b then
-    .zero
-  else
-    .succ (ℕ.div (a.sub b) b)
-
-termination_by
-  ℕNat a
-
+termination_by ℕNat a
 decreasing_by
-  rw [ℕ.sub_eq a b]
-  omega
+  have altb: ℕNat b < ℕNat a := ℕ.cmp_greater_lt a b _h
+  have zltb: 0 < ℕNat b := by
+    cases b
+    . exact hnz.elim rfl
+    . simp only [ℕNat]; exact Nat.succ_pos _
+  have zlta: 0 < ℕNat a := Nat.lt_trans zltb altb
+  rw [ℕNat_distributes_over_sub a b]
+  exact Nat.sub_lt zlta zltb

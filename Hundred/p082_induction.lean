@@ -73,6 +73,7 @@ theorem ℕzero_lt_succ: ∀ (a: ℕ), ℕ.zero < a.succ := by
 Let's prove that `ℕ.succ` distributes
 over the right hand side of `ℕ.sum`.
 -/
+@[simp]
 theorem ℕ.sum_succ:
   ∀ (a b: ℕ),
     sum a b.succ = (sum a b).succ

@@ -23,11 +23,16 @@ unfolding all the definitions inside the `[...]`.
 This can complete proofs surprisingly fast!
 It will also try applying lemmas inside the `[...]`!
 -/
-theorem pred_succ': ∀n, pred n.succ = n := by
-  simp [pred]
-
 theorem pred_odd_even: ∀n, Odd n → Even (pred n) := by
   intro _ ho
   cases ho
   simp [pred]
   assumption
+
+-- tag a lemma with `@[simp]` to let future calls to `simp` try it simplicitly!
+@[simp]
+theorem pred_succ': ∀n, pred n.succ = n := by
+  simp [pred]
+
+example: pred ℕ.zero.succ = ℕ.zero := by
+  simp -- uses `pred_succ'` to rewrite `pred ℕ.zero.succ` to `ℕ.zero`!

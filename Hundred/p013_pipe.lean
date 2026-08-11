@@ -15,6 +15,16 @@ parentheses and read more nicely.
 -/
 #reduce ℕ.four |> pred |> pred |> pred
 
+-- Naturally `<|` is also available in the other direction.
+#reduce pred <| pred <| pred <| ℕ.four
+
+/-
+Be careful mixing and matching them!
+The precedence can be confusing
+This parses as `_ <| (_ |> _)`!
+-/
+#reduce pred <| ℕ.four |> .succ
+
 /-
 `a |>.f` is notation for `a.f`
 (where `f` is a method in the namespace of `a`).

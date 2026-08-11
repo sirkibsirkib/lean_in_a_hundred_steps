@@ -15,7 +15,8 @@ But defining relations over arbitrary types,
 and then giving them structure,
 very quickly requires dependent (indexed) types.
 -/
-abbrev EndoRelation (T: Type) := T → T → Prop
+abbrev Relation (T₁ T₂: Type) := T₁ → T₂ → Prop
+abbrev EndoRelation (T: Type) := Relation T T
 abbrev Predicate    (T: Type) := T → Prop
 def trivT: Predicate ℕ := λ (_:ℕ) ↦ True
 

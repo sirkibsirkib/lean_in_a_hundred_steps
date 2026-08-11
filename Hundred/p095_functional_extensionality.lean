@@ -1,6 +1,8 @@
 import Hundred.p047_predicates_and_relations
+import Hundred.p083_congruence
 import Hundred.p087_exfalso
 import Hundred.p093_proof_irrelevance
+import Hundred.p094_propositional_extensionality
 
 /-
 For _definitionally equal_ functions, `Eq.refl` suffices to
@@ -82,9 +84,6 @@ example: ℕ.succ_eq_succ_alt := by
 
 -------- using `propext` and `funext` together ----------
 
-
---------- both together ---------
-
 /-
 Lets use `propext` and `funext` to prove that `Evenℕ` is _equal_ to
 the subtype `{ n // ¬ Odd n }`, which formulates the property
@@ -92,13 +91,19 @@ very differently, but which we previously proved
 (as `even_iff_not_odd`) is logically equivalent to `Evenℕ.property`.
 -/
 
-example: Evenℕ = { n // ¬ Odd n } := by
-  unfold Evenℕ
-  congr -- TODO handle `congr` somewhere!
+theorem Even_eq_Not_Odd: Even = Not ∘ Odd := by
+  -- goal: `Even = (Not ∘ Odd)`
   funext n
+  -- goal: `Even n = (Not ∘ Odd) n`
+  unfold Function.comp
+  -- goal: `f n = g n`
   apply propext
+  -- goal: `f n ↔ g n`
   apply even_iff_not_odd
 
+example: Evenℕ = { n // ¬ Odd n } := by
+  apply Even_vs_Odd_subtype
+  apply Even_eq_Not_Odd
 
 -------------- How is `funext` defined? -------
 

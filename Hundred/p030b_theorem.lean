@@ -1,5 +1,38 @@
-import Hundred.p047_predicates_and_relations
+import Hundred.p030_propositions
 open ℕ
+
+/-
+In Lean, `theorem` is the same as `def`, but
+(only) the former is intended for proving propositions.
+1. You get an error if you use `theorem` to define values in `Type`
+2. You get a warning if you use `def` to define values in `Prop`
+
+(`example` is happy with either).
+-/
+example: Prop := SomeℕExists
+example: ℕ → SomeℕExists := SomeℕExists.this_one
+
+theorem ℕ.non_empty: SomeℕExists :=
+  SomeℕExists.this_one ℕ.four
+
+-- This does the same but generates a warning (as of Lean v4.33 at least)
+def    ℕ.non_empty': SomeℕExists :=
+  SomeℕExists.this_one ℕ.four
+
+-- The type of this definition is `ℕ → SomeℕExists`
+-- where `ℕ: Type` and `SomeℕExists: Prop`
+-- Use `theorem` here, because the _output_ is what matters!
+theorem ℕ.SomeℕExists: ℕ → SomeℕExists := SomeℕExists.this_one
+
+
+/-
+This is yet another asymmetry in Lean between `Type` and `Prop`
+that reinforces that these have different connotations.
+Roughly, we primarily care _that_ theorems are proven (the _type_),
+and only secondarily care _how_ theorems are proven (the _value_).
+-/
+
+/-
 /-
 In Lean (and Rocq etc) "proving" and "proofs" connote
 definitions of terms with complex types, usually in Prop.
@@ -43,3 +76,4 @@ theorem ℕOddOrEven': ∀ (n : ℕ), Odd n ∨ Even n := ℕOddOrEven
 -- Note that the proposition could be defined itself first if desired.
 def ℕOddOrEven_Prop: Prop := ∀ (n : ℕ), Odd n ∨ Even n
 theorem ℕOddOrEven'': ℕOddOrEven_Prop := ℕOddOrEven'
+-/

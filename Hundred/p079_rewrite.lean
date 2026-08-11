@@ -2,7 +2,7 @@ import Hundred.p015_matching
 import Hundred.p026_structural_recursion
 import Hundred.p048_predicates_and_relations
 import Hundred.p050_notation
-import Hundred.p096_classical_axioms
+import Hundred.p097_classical_axioms
 
 /-
 The `rw` ("rewrite") tactic lets you rewrite

@@ -1,4 +1,4 @@
-import Hundred.p090_equivalence
+import Hundred.p091_equivalence
 
 /-
 Conceptually, instantiating class `Setoid T` equips

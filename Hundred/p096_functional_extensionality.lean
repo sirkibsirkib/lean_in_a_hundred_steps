@@ -1,8 +1,8 @@
 import Hundred.p048_predicates_and_relations
-import Hundred.p083_congruence
-import Hundred.p087_exfalso
-import Hundred.p093_proof_irrelevance
-import Hundred.p094_propositional_extensionality
+import Hundred.p084_congruence
+import Hundred.p088_exfalso
+import Hundred.p094_proof_irrelevance
+import Hundred.p095_propositional_extensionality
 
 /-
 For _definitionally equal_ functions, `Eq.refl` suffices to

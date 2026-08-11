@@ -1,4 +1,4 @@
-import Hundred.p086_contradiction
+import Hundred.p087_contradiction
 
 /-
 The foundations of Lean are some _constructive logic_, which

@@ -1,14 +1,7 @@
-FIX:
-- rewrite p39_mutual, which no longer introduces mutual
-
 ADD:
-- |> syntax
-- grind
-- obtain
-- coercion (of prop to bool)
+- grind tactic
 - metavariables
-- \circ and \cdot
-- decide tactic
+- try tactic
 - ite typeclass
     - `if then else` notation
 - `rewrite` tactic (before `rw`)

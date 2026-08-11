@@ -32,14 +32,13 @@ def ℕNat: ℕ → Nat
   | ℕ.succ n => Nat.succ (ℕNat n)
   | ℕ.zero   => Nat.zero
 
-instance: Coe ℕ Nat where coe := ℕNat
+/-
+Let's consider a simple case:
+let's define `ℕ.cmp`, a recursive comparator of `ℕ` pairs,
+and prove that this function terminates.
+-/
 
--- Ok now a few preliminaries ...
-
-inductive Cmp where
-  | less
-  | equal
-  | greater
+inductive Cmp where | less | equal | greater
 
 -- Step #1: define a recursive function. Let's computes `Cmp` given two `ℕ`
 def ℕ.cmp (a b: ℕ): Cmp :=
@@ -106,103 +105,124 @@ example: ℕ.cmp one three = Cmp.less := by
   unfold one
   unfold three
   unfold two
-  repeat unfold ℕ.cmp
+  unfold ℕ.cmp
+  unfold ℕ.cmp
   rfl
 
 /-
 But perhaps the above example was not totally convincing,
 because it could be worked around by reformulating the definition.
-For example, here is a function essentially similar to `cmpℕ`
-in that it peels away layers from `a b: ℕ` at each recursive call.
-But now we avoid `(_, _)` and expose the decreasing structure.
-As a consequence, Lean automatically proves termination!
+
+Here is `ℕ.cmp'` which
+1. we prove is definitionally equivalent to `ℕ.cmp`, but
+2. is reformulated such that Lean _does_ see that it terminates.
+  The trick is subtle: we match a pair `a, b` rather than matching
+  a tuple `(a, b)` that we construct and then deconstruct on the fly.
 -/
-def ℕ.abs_diff (a b: ℕ): ℕ :=
-  match a with
-  | zero => b
-  | succ a' =>
-    match b with
-    | ℕ.zero => a
-    | ℕ.succ b' => abs_diff a' b'
+def ℕ.cmp' (a b: ℕ): Cmp :=
+  match a, b with
+  | zero  , zero   => Cmp.equal
+  | zero  , succ _ => Cmp.less
+  | succ _, zero   => Cmp.greater
+  | succ x, succ y => cmp' x y
 
-section ℕopened
-  open ℕ
+#print Nat.lt
 
-  example: abs_diff two four = two := by
-    simp [abs_diff, one, two, three, four]
+#print Nat.lt
 
-  example: abs_diff four two = two := by
-    simp [abs_diff, one, two, three, four]
+theorem ℕ.cmp_less_implies_lt_ℕNat:
+  ∀ a b,
+    ℕ.cmp a b = Cmp.less →
+    ℕNat a < ℕNat b
+:= by
+  intro a b h
+  induction a generalizing b with
+  | zero =>
+    cases b
+    . unfold cmp at h
+      cases h
+    . exact Nat.succ_pos _
+  | succ a ih =>
+    cases b
+    . rw [ℕ.cmp] at h
+      contradiction
+    . case succ b' =>
+      rw [ℕ.cmp] at h
+      have hb': a.cmp b' = Cmp.less := h
+      have hlt: ℕNat a < ℕNat b' := ih b' hb'
+      rw [ℕNat, ℕNat]
+      exact Nat.succ_lt_succ hlt
 
+theorem ℕ.lt_ℕNat_impl_cmp_less:
+  ∀ a b,
+    ℕNat a < ℕNat b →
+    ℕ.cmp a b = Cmp.less
+:= by
+  intro a b
+  induction a generalizing b with
+  | zero =>
+      intro h
+      cases b with
+      | zero =>
+          rw [ℕNat] at h
+          exact absurd h (Nat.lt_irrefl 0)
+      | succ b' => rw [ℕ.cmp]
+  | succ a' iha =>
+      intro h
+      cases b with
+      | zero =>
+          rw [ℕNat, ℕNat] at h
+          contradiction
+      | succ b' =>
+          rw [ℕNat, ℕNat] at h
+          have h' : ℕNat a' < ℕNat b' := Nat.lt_of_succ_lt_succ h
+          have hcmp : a'.cmp b' = Cmp.less := iha b' h'
+          rw [ℕ.cmp]
+          exact hcmp
 
-  -------------- TODO WHAT NEXT?
+/-
+So let's see a more complex example:
 
-  theorem wah:
-    ∀ a b,
-      cmp a b      = Cmp.less →
-      cmp a b.succ = Cmp.less
-  := by
-    sorry
+Step #1: define the function `toward_three`:
+add or remove `succ` from `n` until `n = three`.
 
-  theorem wah2:
-    ∀ a b,
-      cmp a.succ b = Cmp.less →
-      cmp a      b = Cmp.less
-  := by
-    intro a
-    induction a
-    . case zero =>
-      intro b h
-      cases b
-      . exfalso
-        unfold cmp at h
-        contradiction
-      . case succ b =>
-        simp [cmp]
-    . case succ a ih =>
-      intro b h
+This function sometimes calls with an
+_increasing_ parameter `n`,
+so obviously Lean cannot infer termination.
+-/
+def ℕ.abs_diff: ℕ → ℕ → ℕ
+  |    zero,      b  => b
+  |      a ,    zero => a
+  | succ a', succ b' => a'.abs_diff b'
 
-      sorry
+def ℕ.sub : ℕ → ℕ → ℕ
+  | a,        .zero    => a
+  | .zero,    .succ _  => .zero
+  | .succ a', .succ b' => sub a' b'
 
-  /-
-  So let's see a more complex example:
+theorem ℕ.sub_eq: ∀ a b, ℕNat (a.sub b) = ℕNat a - ℕNat b := by
+  intro a b
+  induction a generalizing b with
+  | zero => cases b <;> simp [ℕ.sub, ℕNat]
+  | succ a' iha =>
+    cases b with
+    | zero    => simp [ℕ.sub, ℕNat]
+    | succ b' =>
+      have hi := iha b'
+      simp only [ℕ.sub, ℕNat]
+      omega
 
-  Step #1: define the function `toward_three`:
-  add or remove `succ` from `n` until `n = three`.
+def ℕ.div (a b : ℕ) : ℕ :=
+  if hb : ℕNat b = 0 then
+    .zero
+  else if h : ℕNat a < ℕNat b then
+    .zero
+  else
+    .succ (ℕ.div (a.sub b) b)
 
-  This function sometimes calls with an
-  _increasing_ parameter `n`,
-  so obviously Lean cannot infer termination.
-  -/
+termination_by
+  ℕNat a
 
-  def toward_three (n: ℕ): ℕ :=
-    match _h: cmp n three with
-    | Cmp.less    => toward_three n.succ
-    | Cmp.equal   => n
-    | Cmp.greater => toward_three (pred n)
-
-  /-
-  Step #2: define the decreasing measure:
-    the absolute difference in number of `succ`s
-    between `three` and `n`.
-  -/
-  termination_by
-    ℕNat (abs_diff three n)
-
-  /-
-  Step #3: prove that the measure decreases
-  per recursive call. Now there are two calls!
-  -/
-  decreasing_by
-    . induction n
-      . simp [abs_diff, one, two, three, ℕNat]
-      . case succ n ih =>
-
-        sorry
-    . induction n
-      . exfalso
-        simp [three, cmp] at _h
-      . case succ n ih =>
-
-        sorry
-end ℕopened
+decreasing_by
+  rw [ℕ.sub_eq a b]
+  omega

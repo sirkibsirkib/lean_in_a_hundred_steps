@@ -80,7 +80,24 @@ theorem ℕ.sum_succ:
   intro a
   induction a
   . intro b
-    exact Eq.refl (zero.sum b.succ)
+    rfl
   . case succ a' ih =>
     intro b
     exact ih b.succ
+
+/-
+`induction x generalizing y with ...` is sugar
+for
+`revert y`
+`induction x`
+`. intro y ...`
+`. intro y ...`
+`. intro y ...`
+
+Combining such tricks can make proofs more readable!
+-/
+theorem ℕ.sum_succ' (a b: ℕ):
+  sum a b.succ = (sum a b).succ
+:= by induction a generalizing b with
+  | zero       => rfl
+  | succ a' ih => exact ih b.succ

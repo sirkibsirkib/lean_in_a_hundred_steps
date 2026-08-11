@@ -1,6 +1,6 @@
 import Hundred.p015_matching
-import Hundred.p047_predicates_and_relations
-import Hundred.p093_simp
+import Hundred.p048_predicates_and_relations
+import Hundred.p077_simp
 open ℕ
 
 -- `repeat <tactic>` will repeat the given tactic while it works

@@ -1,4 +1,4 @@
-import Hundred.p039_inductive_function_types
+import Hundred.p040_inductive_function_types
 
 /-
 Recall that structures can interleave

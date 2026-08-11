@@ -1,5 +1,5 @@
 import Hundred.p015_matching
-import Hundred.p047_predicates_and_relations
+import Hundred.p048_predicates_and_relations
 
 /-
 `axiom` is a command like `def` but where you omit the term;

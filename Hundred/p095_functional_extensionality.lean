@@ -1,4 +1,4 @@
-import Hundred.p047_predicates_and_relations
+import Hundred.p048_predicates_and_relations
 import Hundred.p083_congruence
 import Hundred.p087_exfalso
 import Hundred.p093_proof_irrelevance

@@ -1,6 +1,6 @@
 import Hundred.p001_inductive_types
 import Hundred.p014_constructor_functions
-import Hundred.p042_inductive_parameters_vs_indices
+import Hundred.p043_inductive_parameters_vs_indices
 open ℕ
 /-
 Intuitively, `Eq x y` is the standard (strongest)

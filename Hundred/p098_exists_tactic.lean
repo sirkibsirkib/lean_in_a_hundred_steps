@@ -1,5 +1,5 @@
 import Hundred.p026_structural_recursion
-import Hundred.p042_inductive_parameters_vs_indices
+import Hundred.p043_inductive_parameters_vs_indices
 
 /-
 Recall that `Exists` is just some standard inductive

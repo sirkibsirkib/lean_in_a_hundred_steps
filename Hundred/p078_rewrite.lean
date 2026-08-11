@@ -1,7 +1,7 @@
 import Hundred.p015_matching
 import Hundred.p026_structural_recursion
-import Hundred.p047_predicates_and_relations
-import Hundred.p049_notation
+import Hundred.p048_predicates_and_relations
+import Hundred.p050_notation
 import Hundred.p096_classical_axioms
 
 /-

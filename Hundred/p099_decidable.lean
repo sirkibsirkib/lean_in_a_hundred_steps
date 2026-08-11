@@ -1,6 +1,6 @@
 import Hundred.p001_inductive_types
 import Hundred.p014_constructor_functions
-import Hundred.p058_less_than
+import Hundred.p059_less_than
 import Hundred.p082_induction
 
 /-
@@ -38,7 +38,6 @@ example: Decidable (ℕ.two = ℕ.two) → ℕ
   | Decidable.isTrue  _proof => ℕ.three
 
 -- Let's define `Decidable (a = b)` for `a b: Bit` and `a b: ℕ`.
-
 instance: (a: Bit) → (b: Bit) → Decidable (a = b)
   | .nah, .nah => .isTrue  rfl
   | .nah, .yep => .isFalse nofun

@@ -1,5 +1,5 @@
 import Hundred.p015_matching
-import Hundred.p039_inductive_function_types
+import Hundred.p040_inductive_function_types
 
 /-
 An "implicit binding" in lean is a binding surrounded by `{ ... }`.

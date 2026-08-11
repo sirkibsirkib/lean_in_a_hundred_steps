@@ -1,4 +1,4 @@
-import Hundred.p047_predicates_and_relations
+import Hundred.p048_predicates_and_relations
 
 /-
 The `apply <f>` tactic transforms the goal `X`

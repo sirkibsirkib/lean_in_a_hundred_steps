@@ -2,8 +2,8 @@ import Hundred.p001_inductive_types
 import Hundred.p026_structural_recursion
 import Hundred.p030_propositions
 import Hundred.p014_constructor_functions
-import Hundred.p042_inductive_parameters_vs_indices
-import Hundred.p047_predicates_and_relations
+import Hundred.p043_inductive_parameters_vs_indices
+import Hundred.p048_predicates_and_relations
 
 /-
 On top of the normal Lean syntax of identifiers, functions, etc,

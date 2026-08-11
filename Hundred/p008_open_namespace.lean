@@ -74,4 +74,3 @@ only within a particular definition, example, etc.
 -/
 open One.Two.Three in
 example: Bit := another
-er

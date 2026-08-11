@@ -1,12 +1,10 @@
 import Hundred.p048_predicates_and_relations
 
 /-
-Recall that Lean offers tools for conjoining two things:
-- `And` is for propositions (in `Prop`).
-- `Sum` is for data types   (in `Type`).
-
-Lean offers `Subtype` as a way to conjoin a data-proof pair.
-Specifically,
+`Subtype` is essentially `Sigma` but whose
+second element is in `Prop`.
+The assymetry is reflected in the
+difference in names between the fields.
 1. some `val` in `Type`
 2. some propety of `val`.
 

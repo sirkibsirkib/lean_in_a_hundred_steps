@@ -1,6 +1,6 @@
 import Hundred.p048_predicates_and_relations
-import Hundred.p083_induction
-import Hundred.p085_semicolon
+import Hundred.p084_induction
+import Hundred.p086_semicolon
 open ℕ
 
 /-

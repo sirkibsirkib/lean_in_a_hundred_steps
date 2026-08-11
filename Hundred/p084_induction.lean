@@ -1,7 +1,7 @@
 import Hundred.p050_notation
 import Hundred.p048_predicates_and_relations
-import Hundred.p059_less_than
-import Hundred.p060_add
+import Hundred.p060_less_than
+import Hundred.p061_add
 
 namespace Lyst
   variable {T: Type}

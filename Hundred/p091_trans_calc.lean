@@ -1,7 +1,7 @@
 import Hundred.p026_structural_recursion
 import Hundred.p048_predicates_and_relations
-import Hundred.p062_coercion
-import Hundred.p083_induction
+import Hundred.p063_coercion
+import Hundred.p084_induction
 
 /-
 `Trans` is a super generic typeclass for

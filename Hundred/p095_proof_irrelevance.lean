@@ -1,7 +1,7 @@
 import Hundred.p001_inductive_types
 import Hundred.p014_constructor_functions
 import Hundred.p048_predicates_and_relations
-import Hundred.p055_subtype
+import Hundred.p056_subtype
 
 /-
 In Rocq and Lean, things in `Type u` are _computationally relevant_,

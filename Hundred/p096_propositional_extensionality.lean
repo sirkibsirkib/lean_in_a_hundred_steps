@@ -1,5 +1,5 @@
-import Hundred.p087_contradiction
-import Hundred.p094_proof_irrelevance
+import Hundred.p088_contradiction
+import Hundred.p095_proof_irrelevance
 
 /-
 Lean's standard library (and prelude) offer axioms

@@ -1,6 +1,6 @@
 import Hundred.p026_structural_recursion
 import Hundred.p048_predicates_and_relations
-import Hundred.p055_subtype
+import Hundred.p056_subtype
 
 /-
 `congr` (congruence) proves `f x = g y`

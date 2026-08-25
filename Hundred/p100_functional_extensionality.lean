@@ -2,7 +2,7 @@ import Hundred.p048_predicates_and_relations
 import Hundred.p085_congruence
 import Hundred.p089_exfalso
 import Hundred.p095_proof_irrelevance
-import Hundred.p096_propositional_extensionality
+import Hundred.p099_propositional_extensionality
 
 /-
 For _definitionally equal_ functions, `Eq.refl` suffices to
@@ -25,8 +25,8 @@ def ℕ.succ_eq_succ_alt: Prop := ℕ.succ = ℕ.succ_alt
 
 /-
 We can formulate and prove a related property:
-_extensional equality_ (of functions) means they
-have equal outputs for equal inputs.
+_functional extensionality_ or _extensional equality of functions_
+means they have equal outputs for equal inputs.
 -/
 
 -- simpler case: output type does not depend on the input

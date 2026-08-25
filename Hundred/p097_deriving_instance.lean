@@ -1,6 +1,6 @@
 import Hundred.p001_inductive_types
 import Hundred.p048_predicates_and_relations
-import Hundred.p101_decidable
+import Hundred.p096_decidable
 
 /-
 Using some metaprogramming wizardry,

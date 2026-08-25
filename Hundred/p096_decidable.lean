@@ -31,11 +31,12 @@ example: Decidable (ℕ.two = ℕ.two) := Decidable.isTrue (Eq.refl ℕ.two)
 By living in `Type`, a value of type `Decidable P`
 is "computationally relevant", and can be
 eliminated (matched) to produce values in `Type`!
+
 This is not the case for `P ∨ ¬P`.
 -/
-example: Decidable (ℕ.two = ℕ.two) → ℕ
-  | Decidable.isFalse _proof => ℕ.zero
-  | Decidable.isTrue  _proof => ℕ.three
+example: Decidable (ℕ.two = ℕ.two) → Bit
+  | Decidable.isFalse _proof => .nah
+  | Decidable.isTrue  _proof => .yep
 
 -- Let's define `Decidable (a = b)` for `a b: Bit` and `a b: ℕ`.
 instance: (a: Bit) → (b: Bit) → Decidable (a = b)
@@ -139,3 +140,19 @@ Phew, ok. But what have we got? `dec_lt_ℕ` gives us...
 #reduce dec_lt_ℕ ℕ.two ℕ.one
 #reduce dec_lt_ℕ ℕ.one ℕ.one
 #reduce dec_lt_ℕ ℕ.zero ℕ.one
+
+-- `DecidableEq T` is just shorthand for `∀ x y: T, Decidable (x = y)`.
+#print DecidableEq
+
+-- Here is a larger function, transforming `Decidable` values to other `Decidable` values.
+-- This shows how you might use `Decidable` values even without `instance`.
+def Lyst.decEq {T: Type} [DecidableEq T]: DecidableEq (Lyst T)
+  | .nil, .nil => isTrue rfl
+  | .nil, .cons _ _ => isFalse (λ h ↦ nomatch h)
+  | .cons _ _, .nil => isFalse (λ h ↦ nomatch h)
+  | .cons h1 t1, .cons h2 t2 =>
+    if hh: h1 = h2
+    then match Lyst.decEq t1 t2 with
+    | isFalse hne => isFalse (λ h ↦hne (by injection h))
+    | isTrue rfl => isTrue (by subst h1; rfl)
+    else isFalse (λ h ↦ hh (by injection h))

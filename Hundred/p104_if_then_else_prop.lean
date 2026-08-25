@@ -1,4 +1,4 @@
-import Hundred.p101_decidable
+import Hundred.p096_decidable
 
 /-
 Recall that `if X then _ else _` works when `X: Bool`.

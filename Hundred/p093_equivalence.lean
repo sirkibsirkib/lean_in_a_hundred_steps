@@ -1,4 +1,4 @@
-import Hundred.p091_trans_calc
+import Hundred.p092_trans_calc
 
 /-
 `Equivalence r` is a standard `structure` that

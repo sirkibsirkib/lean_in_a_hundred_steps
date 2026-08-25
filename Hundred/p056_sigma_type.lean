@@ -1,5 +1,5 @@
 import Hundred.p043_inductive_parameters_vs_indices
-import Hundred.p048_predicates_and_relations
+import Hundred.p049_predicates_and_relations
 
 /-
 Recall that `Prod` is the type of pairs in `Type`.

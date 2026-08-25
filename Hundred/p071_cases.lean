@@ -1,5 +1,5 @@
 import Hundred.p001_inductive_types
-import Hundred.p048_predicates_and_relations
+import Hundred.p049_predicates_and_relations
 
 /-
 `cases n` is the tactic version of `match n with`.

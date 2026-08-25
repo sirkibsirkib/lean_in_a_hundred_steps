@@ -1,8 +1,8 @@
 import Hundred.p015_matching
 import Hundred.p026_structural_recursion
-import Hundred.p050_notation
+import Hundred.p051_notation
 import Hundred.p043_inductive_parameters_vs_indices
-import Hundred.p048_predicates_and_relations
+import Hundred.p049_predicates_and_relations
 open ℕ
 
 /-
@@ -10,9 +10,6 @@ open ℕ
 by substituting it with something in context
 with which it is equal (`n = ...`) or
 definitionally equal (`n := ...`).
-
-Its usages overlap a lot with `rw`,
-because both work on premises of the form `Eq` premises.
 -/
 theorem try_pred'_some_not_zero
 : ∀ (a b: ℕ),

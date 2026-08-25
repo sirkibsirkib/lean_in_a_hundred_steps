@@ -1,13 +1,16 @@
 import Hundred.p015_matching
 import Hundred.p026_structural_recursion
-import Hundred.p048_predicates_and_relations
-import Hundred.p050_notation
-import Hundred.p101_classical_axioms
+import Hundred.p049_predicates_and_relations
+import Hundred.p051_notation
+import Hundred.p086_semicolon
+import Hundred.p084_induction
 
 /-
 The `rw` ("rewrite") tactic lets you rewrite
 (parts of) types using proofs of shape `x = y` or `x ↔ y`
 in either direction.
+
+`rw` can be understood as a (clunky) generalisation of `subst`.
 -/
 
 theorem odd_neven n: Odd n ↔ ¬ Even n := by

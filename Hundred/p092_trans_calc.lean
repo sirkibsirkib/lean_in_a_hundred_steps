@@ -1,6 +1,6 @@
 import Hundred.p026_structural_recursion
-import Hundred.p048_predicates_and_relations
-import Hundred.p063_coercion
+import Hundred.p049_predicates_and_relations
+import Hundred.p064_coercion
 import Hundred.p084_induction
 
 /-

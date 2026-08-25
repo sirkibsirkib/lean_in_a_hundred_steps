@@ -1,6 +1,6 @@
 import Hundred.p001_inductive_types
 import Hundred.p014_constructor_functions
-import Hundred.p060_less_than
+import Hundred.p061_less_than
 import Hundred.p084_induction
 
 /-

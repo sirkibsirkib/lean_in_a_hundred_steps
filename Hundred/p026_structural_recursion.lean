@@ -57,14 +57,54 @@ eventually the parameter cannot decrease anymore!
 -/
 
 -- Lean rejects non-terminating functions like this
--- `def foo (x: Bit) := foo`
+
+/--
+error: fail to show termination for
+  foo
+with errors
+  failed to infer structural recursion:
+  Not considering parameter #1 of foo:
+    it is unchanged in the recursive calls
+  no parameters suitable for structural recursion
+
+well-founded recursion cannot be used,
+`foo` does not take any (non-fixed) arguments
+-/
+#guard_msgs (whitespace := lax) in
+def foo: Bit → Bit := λ b ↦ foo b
 
 
 /-
-But lean rejects some functions that are terminating,
+But Lean rejects some functions that are terminating,
 just because it does not automatically confirm they are terminating.
 
-Later, we will see how you can fall back to a more
-complicated system to _prove_ that
-each recursive call is decreasing by some "measure".
+The following example is such a case; we can understand that
+it terminates (each recursive call takes the input
+one step closer to `ℕ.one`) but Lean cannot.
+
+The error message gives a hint at the solution:
+  we use auxiliary goals like `termination_by` to
+  give Lean extra information needed for it to
+  be convinced that the function is terminating.
 -/
+
+/--
+error: fail to show termination for
+  ℕ.bar
+with errors
+failed to infer structural recursion:
+Cannot use parameter #1:
+  failed to eliminate recursive application
+    zero.succ.bar
+
+failed to prove termination, possible solutions:
+  - Use `have`-expressions to prove the remaining goals
+  - Use `termination_by` to specify a different well-founded relation
+  - Use `decreasing_by` to specify your own tactic for discharging this kind of goal
+⊢ False
+-/
+#guard_msgs (whitespace := lax) in
+def ℕ.bar: ℕ → Bit
+  |      zero => zero.succ.bar
+  | succ zero => Bit.nah -- stop condition: arg is one
+  | succ n    => n.bar

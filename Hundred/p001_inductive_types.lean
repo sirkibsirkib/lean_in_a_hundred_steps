@@ -12,6 +12,10 @@ We call `yep` and `nah` the _constructors_ of `Bit`.
 The Lean convention is that inductive types are in (upper) CamelCase,
 and constructors are in (lower) snake_case.
 -/
+
+/-- Docstrings begin with `/` and `--`,
+and they must precede some definition! (here of `Bit`)
+-/
 inductive Bit: Type where
   | yep: Bit
   | nah: Bit

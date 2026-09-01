@@ -5,7 +5,7 @@ We already saw that definitions of terms
 (and constructors) can be parametrised,
 turning them into functions
 
-But you can also an `inductive` type defintion itself!
+But you can also parametrise an `inductive` defintion itself!
 Adding explicit parameter `(t: T)` ...
 1. adds `(t: T) →` to the type
 2. adds `{t: T} →` to each constructor.
@@ -141,3 +141,32 @@ example :=
       : LenLyst Bit ℕ.one)
     : LenLyst Bit ℕ.two)
   : LenLyst Bit ℕ.three)
+
+
+
+abbrev EndoRel α := α → α → Prop
+
+
+inductive TransClos {α: Sort u} (R: EndoRel α): EndoRel α where
+  | base x y  :           R x y →
+                TransClos R x y
+  | step x y z:           R x y →
+                TransClos R   y z →
+                TransClos R x   z
+
+
+inductive TransClos' {α: Sort u} (R: EndoRel α) (x: α): α → Prop where
+  | base y  :              R x y   →
+                TransClos' R x y
+  | step y z:              R x y   →
+                TransClos' R   y z →
+                TransClos' R x   z
+
+
+inductive Exec: EndoRel Nat where
+
+  | atomic m n:
+      -- if   `p` completes after any number of steps,
+      -- then `p.atomic` completes in one step
+      (TransClos Exec) m n →
+      Exec  m n

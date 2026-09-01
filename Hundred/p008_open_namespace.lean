@@ -27,7 +27,17 @@ open Second -- equivalent to `open Second (name)`
 #print name
 
 -- Lean would raise an error if you attempt to _use_ ambiguous names!
--- `def whee: Bit := name` -- (un-commenting this line raises an error)
+
+
+/--
+error: Ambiguous term
+  name
+Possible interpretations:
+  Second.name : Bit
+  First.name : Bit
+-/
+#guard_msgs (whitespace := lax) in
+def whee: Bit := name
 
 -- { `Second.name`, `name` } are in scope.
 namespace Second

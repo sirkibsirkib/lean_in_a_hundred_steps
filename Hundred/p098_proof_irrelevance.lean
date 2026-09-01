@@ -50,11 +50,21 @@ inductive Bit': Prop where
 /-
 The following would be rejected by Lean!
 The `cases h` step does not complete the proof here.
-`theorem Bit'.nah_neq_yep: Bit'.yep = Bit'.nah → False := by`
-`  intro h`
-`  -- h : yep = nah`
-`  cases h -- `h` is gone! We learned nothing and the goal remains False!`
 -/
+
+/-- error: unsolved goals
+⊢ 1 = 2 -/
+#guard_msgs(error) in
+example: 1=2 := by done
+
+/-- error: unsolved goals
+case refl
+⊢ False -/
+#guard_msgs in
+theorem Bit'.nah_neq_yep: Bit'.yep = Bit'.nah → False := by
+  intro h
+  -- h : yep = nah
+  cases h -- `h` is gone! We learned nothing and the goal remains False!
 
 /- These observations are fundamentally the same in Rocq
 `Inductive Bit: Type := yep | nah.`

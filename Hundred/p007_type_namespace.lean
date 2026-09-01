@@ -14,7 +14,11 @@ Otherwise, (constructor) names in namespace work as per
 the resolution of names in namespaces as usual, as we saw already.
 -/
 example:     Bit := Bit.nah
--- `example: Bit :=     nah` -- Uncommenting this raises error! `nah` is not in scope!
+
+
+/-- error: Unknown identifier `nah'` -/
+#guard_msgs in
+example: Bit := nah'
 
 namespace Bit
   -- Once inside `Bit`, both `nah` and `Bit.nah` are in scope!

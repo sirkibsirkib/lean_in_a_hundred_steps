@@ -29,10 +29,16 @@ namespace Outer
 end Outer
 
 -- Names in a namespace are not in scope outside by default
--- `example := Bit₁` -- Uncommenting this would raise an error
 
--- Refer to a name in a deeper namespace by traversing into it with `<namespace>.`
--- You may traverse recursively.
+/-- error: Unknown identifier `Bit₁` -/
+#guard_msgs in
+example := Bit₁
+
+/-
+Refer to a name in a deeper namespace by
+traversing into it with `<namespace>.`
+You may traverse recursively.
+-/
 example := Outer.Inner.Bit₂
 
 -- From inside a scope, you may begin your traversal as if you were further outside.

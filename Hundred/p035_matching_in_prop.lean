@@ -36,10 +36,28 @@ which take data as input, but crucially, no proof is matched!
 -/
 example: SomeℕExists → ℕ := λ _ ↦ ℕ.zero
 
-/-
-While it seems similar, Lean rejects the following:
-`example: SomeℕExists → ℕ := λ | SomeℕExists.this_one n => n`
+-- While it seems similarto the above,
+-- Lean rejects the following definition.
 
+/--
+error: Tactic `cases` failed with a nested error:
+Tactic `induction` failed: recursor `SomeℕExists.casesOn` can only eliminate into `Prop`
+
+motive : SomeℕExists → Sort ?u.6
+h_1 : (n : ℕ) → motive ⋯
+x✝ : SomeℕExists
+⊢ motive x✝ after processing
+  _
+the dependent pattern matcher can solve the following kinds of equations
+- <var> = <term> and <term> = <var>
+- <term> = <term> where the terms are definitionally equal
+- <constructor> = <constructor>, examples: List.cons x xs = List.cons y ys, and List.cons x xs = List.nil
+-/
+#guard_msgs (whitespace := lax) in
+example: SomeℕExists → ℕ
+  | SomeℕExists.this_one n => n
+
+/-
 Lean imposes this restriction because proofs are _erased_
 during Lean's compilation to LLVM, and only "computational" values remain!
 

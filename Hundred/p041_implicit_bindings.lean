@@ -50,16 +50,28 @@ namespace Maybe
 
   -- You can generally think of the `@`-version as
   -- the original with implicits made explicit ...
-  example: {T:Type} → T → Maybe T :=  some'
-  example: (T:Type) → T → Maybe T := @some'
+  example: {T: Type} → T → Maybe T :=  some'
+  example: (T: Type) → T → Maybe T := @some'
   example := @some'
 
   -- Except that, if forced by context, Lean is also
   -- happy to keep parameters implicit.
-  example: {T:Type} → T → Maybe T := @some'
+  example: {T: Type} → T → Maybe T := @some'
 
   -- The opposite is not true. Lean won't coerce implicits to explicit without `@`!
-  -- `example: (T:Type) → T → Maybe T := some'` -- uncommenting raises error
+  -- Here, lean is not exposing the implicit first argument.
+
+  /--
+  error: Type mismatch
+    some'
+  has type
+    ?m.1 → Maybe ?m.1
+  of sort `Type` but is expected to have type
+    (T : Type) → T → Maybe T
+  of sort `Type 1`
+  -/
+  #guard_msgs (whitespace := lax) in
+  example: (T: Type) → T → Maybe T := some'
 
   -- Finally, note that `@` is usable on any term,
   -- but without implicit parameters, there is no effect.

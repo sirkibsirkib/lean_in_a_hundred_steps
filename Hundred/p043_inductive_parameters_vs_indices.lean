@@ -142,31 +142,22 @@ example :=
     : LenLyst Bit ℕ.two)
   : LenLyst Bit ℕ.three)
 
+/-
+Sometimes, the same concepts can be defined
+via either a parameter or an index.
+There is no consequential difference.
+Even the underlying machinery ends up the same.
 
+Here, for example, Lean generates an isomorphic `rec` method,
+which (as we later see) determines how we reason via _induction_.
+-/
+inductive  P (b: Bit):   ℕ → Prop -- `b` is a parameter
+| z:       P b ℕ.zero
+| s n:     P b n → P b n.succ
 
-abbrev EndoRel α := α → α → Prop
+inductive  I: (b: Bit) → ℕ → Prop -- `b` is an index
+| z {b}:   I b ℕ.zero
+| s {b} n: I b n → I b n.succ
 
-
-inductive TransClos {α: Sort u} (R: EndoRel α): EndoRel α where
-  | base x y  :           R x y →
-                TransClos R x y
-  | step x y z:           R x y →
-                TransClos R   y z →
-                TransClos R x   z
-
-
-inductive TransClos' {α: Sort u} (R: EndoRel α) (x: α): α → Prop where
-  | base y  :              R x y   →
-                TransClos' R x y
-  | step y z:              R x y   →
-                TransClos' R   y z →
-                TransClos' R x   z
-
-
-inductive Exec: EndoRel Nat where
-
-  | atomic m n:
-      -- if   `p` completes after any number of steps,
-      -- then `p.atomic` completes in one step
-      (TransClos Exec) m n →
-      Exec  m n
+#check P.rec
+#check I.rec

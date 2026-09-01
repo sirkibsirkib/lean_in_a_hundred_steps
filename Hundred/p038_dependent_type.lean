@@ -51,7 +51,8 @@ But as usual, the left and right of `→` are
 not limited to defined names! Feel free to compute there!
 Now with dependencies! Here `identity _ P` reduces to `P`!
 -/
-def prop_identity: (P: Prop) → P → (identity _ P) := λ _ p ↦ p
+theorem prop_identity: (P: Prop) → P → (identity _ P) :=
+  λ _ p ↦ p
 
 -- You can get a little crazy!
 example :=  (f: Type → Type) → (T: Type) → f T

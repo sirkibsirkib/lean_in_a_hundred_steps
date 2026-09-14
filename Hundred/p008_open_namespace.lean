@@ -37,7 +37,7 @@ Possible interpretations:
   First.name : Bit
 -/
 #guard_msgs (whitespace := lax) in
-def whee: Bit := name
+example: Bit := name
 
 -- { `Second.name`, `name` } are in scope.
 namespace Second

@@ -11,8 +11,3 @@ and displayed in a window shown when you hover over the command.
 In this case, the shown `Bit` was imported.
 -/
 #print Bit
-
-
-/-- error: Unknown constant `Cheese` -/
-#guard_msgs in
-#print Cheese

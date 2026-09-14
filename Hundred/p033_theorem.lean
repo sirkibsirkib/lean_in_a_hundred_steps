@@ -16,7 +16,15 @@ theorem ℕ.non_empty: SomeℕExists :=
   SomeℕExists.this_one ℕ.four
 
 -- This does the same but generates a warning (as of Lean v4.33 at least)
-def    ℕ.non_empty': SomeℕExists :=
+
+/--
+warning: Definition `non_empty'` is a proposition;
+use `theorem` instead of `def`
+Note: This linter can be disabled
+with `set_option linter.defProp false`
+-/
+#guard_msgs (whitespace := lax) in
+def ℕ.non_empty': SomeℕExists :=
   SomeℕExists.this_one ℕ.four
 
 -- The type of this definition is `ℕ → SomeℕExists`

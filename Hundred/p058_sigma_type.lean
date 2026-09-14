@@ -33,15 +33,15 @@ abbrev eg_sigma: Type := @Sigma ℕ (LenLyst Prop ·.succ)
 def eg_dep_pair: eg_sigma := Sigma.mk .zero (.cons True .nil)
 
 -- `fst` and `snd` project to the pair elements as usual.
-example: eg_dep_pair.fst = ℕ.zero            := by rfl
-example: eg_dep_pair.snd = (.cons True .nil) := by rfl
+example: eg_dep_pair.fst = ℕ.zero            := Eq.refl _
+example: eg_dep_pair.snd = (.cons True .nil) := Eq.refl _
 
 /-
 The Lean prelude defines `Σ x, P x` as notation for
 constructing `Sigma` types in a more legible style.
 Because it is just notation, it boils away under reduction.
 -/
-example: (Σ n:ℕ, LenLyst Prop n.succ) = eg_sigma := by rfl
+example: (Σ n:ℕ, LenLyst Prop n.succ) = eg_sigma := Eq.refl _
 
 -- Here's another very simple example:
 -- any data (`snd`) tagged with its type (`fst`)!

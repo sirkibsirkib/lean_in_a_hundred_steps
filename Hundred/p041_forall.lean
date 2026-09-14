@@ -68,3 +68,5 @@ example: ∀ (_:Type) (_:Prop), Prop := λ (_:Type) (_:Prop) ↦ True
 -- Fortunately, both can take multiple arguments _of the same type_:
 example := (_ _ _: Prop) → Type
 example := ∀_ _ _: Prop,   Type
+
+-- Note: `∀` can alternatively be spelled `forall`

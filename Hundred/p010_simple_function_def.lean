@@ -40,3 +40,8 @@ where `B` is independent on the input value.
 example: Bit → Bit := bit_id
 example: Bit → Bit := bit_const_nah
 example: Bit → Bit := bit_const_nah'
+
+-- Note: in `λ _ ↦ _`,
+-- - the `λ` can alternatively be spelled `fun`
+-- - the `↦` can alternatively be spelled `=>`
+-- - the `→` can alternativelu be spelled `->`

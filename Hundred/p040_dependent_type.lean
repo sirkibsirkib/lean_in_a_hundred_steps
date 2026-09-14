@@ -17,7 +17,7 @@ as in Haskell, and others.
 But actually, the input value can be
 bound to a name inside in the type, too!
 The type of each `λ (a₁: A) ↦ (b: B)`
-is actually some `  (a₂: A) →  (B: Sort u)`
+is actually some `  (a₂: A) → (B: Sort u)`
 
 The `A → B` we have seen until now
 is actually just shorthand for the special case `(_:A) → B`.

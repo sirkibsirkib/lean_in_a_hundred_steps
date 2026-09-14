@@ -77,8 +77,8 @@ import Hundred.p075_apply
 import Hundred.p076_have_obtain
 import Hundred.p077_specialize
 import Hundred.p078_patterns
-import Hundred.p079_change
-import Hundred.p080_rfl_symm
+import Hundred.p079_change_show
+import Hundred.p080_symm
 import Hundred.p081_unfold
 import Hundred.p082_simp
 import Hundred.p083_subst

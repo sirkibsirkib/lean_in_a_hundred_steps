@@ -9,11 +9,11 @@ The `simp` tactic normalises the goal
 -- Here, `simp` reduces a match statement (twice).
 theorem pred_succ: ∀n, pred n.succ = n := by
   intro n
-  induction n
+  cases n
   . case zero =>
     unfold pred
     simp
-  . case succ n ih =>
+  . case succ n =>
     unfold pred
     simp
 

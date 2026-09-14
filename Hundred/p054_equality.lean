@@ -76,5 +76,18 @@ example: Prop := one ≠ two
 -- that this notation means what we think it means. Meta!
 example (x y: Prop): (x ≠ y) = ¬(x = y) := Eq.refl (x ≠ y)
 
--- Eq.symm is a handy method to know about
-example (x y: Prop): x=y → y=x := Eq.symm
+
+/-
+`Eq` propositions and proofs are so common,
+that it pays to be familiar with the common
+utilities for `Eq` (under the `Eq` namespace and prelude).
+-/
+
+-- `Eq.symm` flips the equality.
+example: ∀ {m n: ℕ}, m=n → n=m := Eq.symm
+
+-- `Eq.trans` derives `a=c` from `a=b` and `b=c`.
+example: ∀ {a b c: ℕ}, a=b → b=c → a=c := Eq.trans
+
+-- `rfl` is an abbreviation of `Eq.refl _`
+example: ∀ {n: ℕ}, n=n := rfl

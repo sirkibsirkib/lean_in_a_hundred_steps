@@ -21,13 +21,8 @@ abbrev Predicate    (T: Type) := T → Prop
 def trivT: Predicate ℕ := λ (_:ℕ) ↦ True
 
 
-def proof_triv: trivT ℕ.four :=
-  by
-  have q := Predicate
-  unfold trivT
-  exact True.intro
-
-#reduce (proofs := true) proof_triv
+theorem proof_triv: trivT ℕ.four :=
+  True.intro
 
 example: Predicate ℕ := λ (_:ℕ) ↦ False
 

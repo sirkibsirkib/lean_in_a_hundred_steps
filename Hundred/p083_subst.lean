@@ -38,7 +38,7 @@ theorem try_pred'_some_iff_not_zero
     a ≠ ℕ.zero ↔ (∃b, try_pred' a = Maybe'.some b)
 := by
   intro a
-  constructor
+  apply Iff.intro
   . intro h
     cases a
     . contradiction

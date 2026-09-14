@@ -82,13 +82,6 @@ example: ∀n, Odd n → ¬ Even n := by
   rw [odd_neven] at h
   exact h
 
--- Here's an example of a classical theorem using `rw`
-example: ∀ (P: Prop), ¬¬P → P := by
-  intro p h
-  classical
-  rw [Classical.not_not] at h
-  assumption
-
 /-
 Here is how you rewrite in the _other_ direction!
 You put a `← ` at the front of the `[...]`.

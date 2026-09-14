@@ -21,18 +21,27 @@ example {P Q : Prop} (p: P)         :   P ∨ Q := Or.inl p
 example {P Q : Prop}        (q: Q)  :   P ∨ Q := Or.inr q
 example {P   : Prop} (h: P → False) : ¬ P     := Not.intro h
 
+example {P Q : Prop} (mp: P → Q) (mpr: Q → P): P ↔ Q := Iff.intro mp mpr
+
+/-
+For these unicode notations, there are
+also ASCII alternatives.
+- `∧` and `/\`
+- `∨` and `\/`
+- `¬` and `~`
+- `↔` and `<->`
+
+-/
+
 /-
 Use `notation` to define your own notation!
 This command is quite complex, so let's just
 see some examples of what is possible.
 -/
-local notation:max "~" => Not
-example: Prop := ~ True
-
-local notation:51 x "⇔" y => (x → y) ∧ (y → x)
+notation:51 x "⇔" y => (x → y) ∧ (y → x)
 example: Prop := True ⇔ False
 
-local notation:26 "either" x "or" y => x ∨ y
+notation:26 "either" x "or" y => x ∨ y
 example: Prop := either True or True ⇔ False
 
 -- There are specialised versions of `notation`

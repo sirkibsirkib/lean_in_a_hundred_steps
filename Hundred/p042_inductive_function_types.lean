@@ -65,6 +65,13 @@ def maybe_or: ∀ (T: Type) (_:Maybe T) (_:Maybe T), Maybe T :=
     | Maybe.none _   => y
 #reduce maybe_or ℕ (try_pred ℕ.zero) (try_pred ℕ.four)
 
+def Maybe.incℕ: Maybe ℕ → Maybe ℕ :=
+  λ m ↦ match m with
+    | Maybe.none ℕ   => Maybe.none ℕ
+    | Maybe.some ℕ n => Maybe.some ℕ n.succ
+
+#reduce (Maybe.some _ ℕ.zero).incℕ.incℕ
+
 def wraps_some: (A B: Type) → (f: A → B) → (A → Maybe B) :=
   λ _ _ f a ↦ Maybe.some _ (f a)
 example: ℕ → Maybe ℕ := wraps_some ℕ ℕ pred

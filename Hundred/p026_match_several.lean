@@ -39,3 +39,8 @@ example: Nothing → Nothing → Bit := λ a b ↦ nomatch a, b
 -- ... but why would you? it suffices that one is empty.
 example: Nothing → Nothing → Bit := λ a _ ↦ nomatch a
 example: Nothing → Nothing → Bit := λ _ b ↦ nomatch b
+
+
+example: ℕ → ℕ → Bit
+  | .zero => λ _ ↦ Bit.yep
+  | _     => λ _ ↦ Bit.nah

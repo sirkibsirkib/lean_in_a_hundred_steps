@@ -57,6 +57,8 @@ the dependent pattern matcher can solve the following kinds of equations
 example: SomeℕExists → ℕ
   | SomeℕExists.this_one n => n
 
+example: SomeℕExists → ℕ := λ _ ↦ ℕ.zero
+
 /-
 Lean imposes this restriction because proofs are _erased_
 during Lean's compilation to LLVM, and only "computational" values remain!

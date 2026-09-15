@@ -51,11 +51,14 @@ But as usual, the left and right of `→` are
 not limited to defined names! Feel free to compute there!
 Now with dependencies! Here `identity _ P` reduces to `P`!
 -/
+example: Type := Prop
+#reduce (types := true) identity _ True
+
 theorem prop_identity: (P: Prop) → P → (identity _ P) :=
   λ _ p ↦ p
 
 -- You can get a little crazy!
-example :=  (f: Type → Type) → (T: Type) → f T
+example := (f: Type → Type) → (T: Type) → f T
 
 /-
 Now that inputs to functions are inter-dependent,

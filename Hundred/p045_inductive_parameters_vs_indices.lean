@@ -16,6 +16,7 @@ Let's use this to make another (neater) defintion of polymorphic "Maybe".
 inductive Maybe' (T: Type): Type where
   | some: T → Maybe' T
   | none:     Maybe' T
+
 example: (_: Type) → Type := Maybe'
 example:     Type  → Type := Maybe'
 example:             Type := Maybe' ℕ
@@ -72,6 +73,10 @@ inductive Lyst (T: Type) where
   | nil : Lyst T
   | cons: T → Lyst T → Lyst T
 
+def Lyst.leng (T: Type): Lyst T → ℕ
+  | .nil => .zero
+  | .cons _ l => l.leng.succ
+
 example: {_: Type} → Lyst Bit := Lyst.nil
 example:             Lyst Bit := Lyst.nil
 
@@ -116,6 +121,9 @@ inductive LenLyst (T: Type): (length: ℕ) → Type where
 example: Type → ℕ → Type := LenLyst
 
 example: {T: Type} → LenLyst T   ℕ.zero := LenLyst.nil
+example: {T: Type} → LenLyst T   ℕ.zero :=@LenLyst.nil
+example: (T: Type) → LenLyst T   ℕ.zero :=@LenLyst.nil
+example: (T: Type) → LenLyst T   ℕ.zero :=@LenLyst.nil
 example:             LenLyst Bit ℕ.zero := LenLyst.nil
 example:             LenLyst ℕ   ℕ.zero := LenLyst.nil
 

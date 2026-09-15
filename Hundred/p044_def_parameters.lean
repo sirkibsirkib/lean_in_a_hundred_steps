@@ -34,8 +34,12 @@ def map_n {T: Type}: (f: T → T) →  ℕ → T → T :=
 
 -- Constructors are definitions too, so they may be parametrised like `def`.
 inductive Someℕ': Prop where
-  | intro_explicit (n:ℕ): Someℕ'
   | intro_implicit {n:ℕ}: Someℕ'
+--| intro_implicit: {n:ℕ} → Someℕ'
+
+  | intro_explicit (n:ℕ)
+--| intro_explicit (n:ℕ): Someℕ'
+
 example: Someℕ' :=  Someℕ'.intro_explicit ℕ.zero
 
 -- Here, I need `@` because `{n}` cannot be inferred from context

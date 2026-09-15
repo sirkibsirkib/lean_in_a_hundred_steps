@@ -50,3 +50,5 @@ namespace ℕ
   def three: ℕ := succ two
   def four:  ℕ := succ three
 end ℕ
+
+#reduce ℕ.four

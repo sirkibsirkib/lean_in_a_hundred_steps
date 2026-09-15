@@ -32,9 +32,27 @@ which has only one trivial proof (constructor): `True.intro`
 example: Prop := True
 example: True := True.intro
 
+example: ℕ := ℕ.zero
+
+#print True
+
 -- Lean also defines the trivially unprovable proposition: `False`.
 -- It has zero contructors (just like `Nothing` we defined way in the beginning).
 example: Prop := False
+example := (False : Prop)
+
+#print False
+
+example: Type := ℕ → Bit
+example: ℕ → Bit := λ _ ↦ Bit.nah
+
+example: Prop := False → True
+example: False → True := λ _ ↦ True.intro
+example: False → True := λ f ↦ nomatch f
+example: False → True := nofun
+
+example: Prop := ∀ (_:False), True
+example: ∀ (_:False), True := λ _ ↦ True.intro
 
 /-
 The cornerstone of constructivism in Lean (and Rocq, etc.)

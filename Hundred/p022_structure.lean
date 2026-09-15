@@ -9,11 +9,13 @@ These parameters are called _fields_ of the structure type.
 -/
 structure ℕPair: Type where
   mk:: -- (optional: naming the constuctor `: ℕ → ℕ → ℕPair`)
-  a: ℕ -- param #0
-  b: ℕ -- param #1
+  a: ℕ -- param "1"
+  b: ℕ -- param "2"
+
+#print ℕPair.b
 
 example: ℕ → ℕ → ℕPair := ℕPair.mk
-example:          ℕPair := ℕPair.mk ℕ.zero ℕ.two
+example:         ℕPair := ℕPair.mk ℕ.zero ℕ.two
 
 /-
 Naming the constructor is optional, because

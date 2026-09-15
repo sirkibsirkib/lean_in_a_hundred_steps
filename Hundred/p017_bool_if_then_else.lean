@@ -9,6 +9,9 @@ which are in the prelude by default.
 (We will only pay it lip service here,
 and then go back to modelling it with `Bit`).
 -/
+
+#print Bool
+
 example: Type := Bool
 example: Bool := Bool.true
 example: Bool := true

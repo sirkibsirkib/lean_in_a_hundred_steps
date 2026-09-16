@@ -130,9 +130,9 @@ example:             LenLyst ℕ   ℕ.zero := LenLyst.nil
 example := (LenLyst.nil : LenLyst Bit ℕ.zero)
 
 example :=
-  (LenLyst.cons Bit.nah
-    (LenLyst.nil : LenLyst Bit ℕ.zero)
-  : LenLyst Bit ℕ.one)
+  (.cons Bit.nah
+    (LenLyst.nil : LenLyst _ _)
+  : LenLyst _ _)
 
 example :=
   (LenLyst.cons Bit.nah

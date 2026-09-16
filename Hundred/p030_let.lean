@@ -20,7 +20,7 @@ example :=
   let count_yeps: Bit → ℕ
     | Bit.yep => ℕ.one
     | Bit.nah => ℕ.zero
-
+  
   is_zero (count_yeps Bit.yep)
 
 /-

@@ -14,6 +14,7 @@ are used to define functions whose parameters
 may or may not be types, all mixed together!
 -/
 
+def thing := Type → Type → Bit → Type
 def first_type: Type → Type → Bit → Type :=
   λ (T1 T2: Type) (b: Bit) ↦
     match b with

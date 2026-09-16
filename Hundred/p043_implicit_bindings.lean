@@ -17,6 +17,23 @@ Note:
 -/
 example: ∀ {_:Type}, Type := λ {_:Type} ↦ Bit
 
+def identity_again: {T: Type} → (t: T) → T :=
+  λ t ↦ t
+example: Bit := identity_again Bit.nah
+
+example: Bit → Bit := identity_again
+example            := (identity_again : Bit → Bit)
+example            := @identity_again Bit
+
+example: {T: Type} → (t: T) → T := identity_again
+example: {_: Type} → (t: ℕ) → ℕ := identity_again
+example:              (t: ℕ) → ℕ := identity_again
+example := @identity_again
+
+
+def somenat: {_: Type} → ℕ := λ {_:Type} ↦ ℕ.zero
+example: ℕ := @somenat Bit
+
 namespace Maybe
 
   -- Running example: a function with an implicit then explicit parameter

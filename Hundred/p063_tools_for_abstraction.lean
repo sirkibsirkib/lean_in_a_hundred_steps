@@ -33,7 +33,7 @@ Obtaining an instance of our abstraction just requires
 filling in all the parameters.
 -/
 
-def ℕsucc_neq (n: ℕ): n.succ ≠ n := nofun
+theorem ℕsucc_neq (n: ℕ): n.succ ≠ n := nofun
 
 def inc_twice_ℕ: ℕ → ℕ :=
   inc_twice
@@ -167,3 +167,17 @@ classes from the Lean standard library.
 
 We will focus on using `Add` and `LT` and `Decidable` later.
 -/
+
+-- Let us see all these tricks applied in a realistic situation:
+-- "take an arbitrary labelled transition system"
+class TransitionSystem where
+  State: Type
+  Label: Type
+  init: State
+  step: State → Label → State → Prop
+
+variable [TransitionSystem]
+open TransitionSystem
+
+-- we can use these fields as opaque definitions!
+example: Label → State → Prop := step init
